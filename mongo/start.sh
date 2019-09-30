@@ -1,3 +1,7 @@
+
+yum install docker
+systemctl enable docker
+systemctl start docker
 # 创建一个挂载盘
 docker volume create mongodb
 # 拉镜像
