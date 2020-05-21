@@ -1,16 +1,49 @@
 {
-	"inbounds": [{
+	"log": {
+		"access": "/var/log/v2ray/access.log",
+		"error": "/var/log/v2ray/error.log",
+		"loglevel": "warning"
+	},
+	"inbound": {
 		"port": 12345,
 		"protocol": "vmess",
 		"settings": {
 			"clients": [{
 				"id": "f8a981b4-abcd-abcd-abcd-d2cfd43311ae",
+				"level": 1,
 				"alterId": 64
 			}]
+		},
+		"streamSettings": {
+			"network": "tcp"
 		}
-	}],
-	"outbounds": [{
+	},
+	"outbound": {
 		"protocol": "freedom",
 		"settings": {}
-	}]
+	},
+	"inboundDetour": [{
+		"protocol": "shadowsocks",
+		"port": 40275,
+		"settings": {
+			"method": "chacha20",
+			"password": "v2ray",
+			"udp": false
+		}
+	}],
+	"outboundDetour": [{
+		"protocol": "blackhole",
+		"settings": {},
+		"tag": "blocked"
+	}],
+	"routing": {
+		"strategy": "rules",
+		"settings": {
+			"rules": [{
+				"type": "field",
+				"ip": ["geoip:private"],
+				"outboundTag": "blocked"
+			}]
+		}
+	}
 }
